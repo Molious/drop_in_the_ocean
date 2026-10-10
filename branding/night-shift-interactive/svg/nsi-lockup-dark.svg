@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1384 480" width="1384" height="480" role="img" aria-label="Night Shift Interactive">
+<title>Night Shift Interactive</title>
+<defs>
+  <linearGradient id="nsl-aqua" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#3FF2E3"/><stop offset="1" stop-color="#14B4D9"/>
+  </linearGradient>
+  <linearGradient id="nsl-ring" x1="0" y1="1" x2="1" y2="0">
+    <stop offset="0" stop-color="#5B21D6"/><stop offset="1" stop-color="#9B5CFF"/>
+  </linearGradient>
+  <filter id="nsl-glow-aqua" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="nsl-glow-purple" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <mask id="nsl-crescent">
+    <circle cx="252" cy="264" r="134" fill="#fff"/>
+    <circle cx="314" cy="216" r="116" fill="#000"/>
+  </mask>
+</defs>
+<rect width="1384" height="480" fill="#0B0820"/>
+<g transform="translate(60,60) scale(0.703125)"><g>
+  <path d="M 349.9 79.4 A 200 200 0 1 0 441.4 181.1" fill="none"
+        stroke="url(#nsl-ring)" stroke-width="16" stroke-linecap="round" filter="url(#nsl-glow-purple)"/>
+  <g filter="url(#nsl-glow-aqua)">
+    <rect x="0" y="0" width="512" height="512" fill="url(#nsl-aqua)"
+          mask="url(#nsl-crescent)"/>
+  </g>
+  <path d="M396 92 L404 120 L432 128 L404 136 L396 164 L388 136 L360 128 L388 120 Z"
+        fill="#F1EDFF" filter="url(#nsl-glow-purple)"/>
+</g></g>
+<g transform="translate(490,156) scale(1)" fill="none" stroke="#F1EDFF" stroke-width="15" stroke-linejoin="bevel" stroke-linecap="butt"><path transform="translate(0,0)" d="M0,100 V0 L70,100 V0"/><path transform="translate(96,0)" d="M0,0 V100"/><path transform="translate(122,0)" d="M70,0 H30 A30,30 0 0 0 0,30 V70 A30,30 0 0 0 30,100 H70 V56 H42"/><path transform="translate(218,0)" d="M0,0 V100 M70,0 V100 M0,50 H70"/><path transform="translate(314,0)" d="M0,0 H70 M35,0 V100"/><path transform="translate(456,0)" d="M70,0 H25 A25,25 0 0 0 25,50 H45 A25,25 0 0 1 45,100 H0"/><path transform="translate(552,0)" d="M0,0 V100 M70,0 V100 M0,50 H70"/><path transform="translate(648,0)" d="M0,0 V100"/><path transform="translate(674,0)" d="M64,0 H0 V100 M0,50 H52"/><path transform="translate(764,0)" d="M0,0 H70 M35,0 V100"/></g>
+<g transform="translate(490,290) scale(0.34)" fill="none" stroke="#3FF2E3" stroke-width="17.6471" stroke-linejoin="bevel" stroke-linecap="butt"><path transform="translate(0,0)" d="M0,0 V100"/><path transform="translate(182.694,0)" d="M0,100 V0 L70,100 V0"/><path transform="translate(435.388,0)" d="M0,0 H70 M35,0 V100"/><path transform="translate(688.082,0)" d="M64,0 H0 V100 H64 M0,50 H52"/><path transform="translate(934.776,0)" d="M0,100 V0 H45 A25,25 0 0 1 45,50 H0 M38,50 L70,100"/><path transform="translate(1187.47,0)" d="M0,100 L37,0 L74,100 M17,54 H57"/><path transform="translate(1444.16,0)" d="M70,0 H30 A30,30 0 0 0 0,30 V70 A30,30 0 0 0 30,100 H70"/><path transform="translate(1696.86,0)" d="M0,0 H70 M35,0 V100"/><path transform="translate(1949.55,0)" d="M0,0 V100"/><path transform="translate(2132.25,0)" d="M0,0 L37,100 L74,0"/><path transform="translate(2388.94,0)" d="M64,0 H0 V100 H64 M0,50 H52"/></g>
+</svg>
