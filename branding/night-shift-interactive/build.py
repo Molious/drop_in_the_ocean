@@ -88,20 +88,28 @@ def _ring_point(deg, cx=256, cy=256, r=200):
     return cx + r * math.cos(a), cy + r * math.sin(a)
 
 
-def badge(uid):
-    """Badge mark on a 512x512 canvas: broken ring, crescent, star."""
+def badge(uid, mono=None):
+    """Badge mark on a 512x512 canvas: broken ring, crescent, star.
+
+    With `mono` set to a color, draws a flat single-color version (no
+    gradients or glows) for print, embossing and one-color placements.
+    """
     # Ring is an open arc with a gap at the upper right where the star sits.
     (x0, y0), (x1, y1) = _ring_point(-62), _ring_point(-22)
+    ring = mono or f"url(#{uid}-ring)"
+    moon = mono or f"url(#{uid}-aqua)"
+    star = mono or INK
+    glow_purple = "" if mono else f' filter="url(#{uid}-glow-purple)"'
+    glow_aqua = "" if mono else f' filter="url(#{uid}-glow-aqua)"'
     return f"""<g>
   <path d="M {x0:.1f} {y0:.1f} A 200 200 0 1 0 {x1:.1f} {y1:.1f}" fill="none"
-        stroke="url(#{uid}-ring)" stroke-width="16" stroke-linecap="round"
-        filter="url(#{uid}-glow-purple)"/>
-  <g filter="url(#{uid}-glow-aqua)">
-    <rect x="0" y="0" width="512" height="512" fill="url(#{uid}-aqua)"
+        stroke="{ring}" stroke-width="16" stroke-linecap="round"{glow_purple}/>
+  <g{glow_aqua}>
+    <rect x="0" y="0" width="512" height="512" fill="{moon}"
           mask="url(#{uid}-crescent)"/>
   </g>
   <path d="M396 92 L404 120 L432 128 L404 136 L396 164 L388 136 L360 128 L388 120 Z"
-        fill="{INK}" filter="url(#{uid}-glow-purple)"/>
+        fill="{star}"{glow_purple}/>
 </g>"""
 
 
@@ -114,25 +122,21 @@ def svg(w, h, body, uid, bg=True, title=""):
     )
 
 
-def build_badge(bg, rounded=False):
+TITLE = "Night Shift Interactive"
+
+
+def build_badge(bg, rounded=False, mono=None):
     uid = "nsb"
-    body = badge(uid)
+    body = badge(uid, mono)
     if rounded:
         # App-icon style tile: rounded square instead of full-bleed background.
         body = f'<rect x="0" y="0" width="512" height="512" rx="112" fill="{BG}"/>\n' + body
-        return svg(512, 512, body, uid, bg=False, title="Night Shift Interactive")
-    return svg(512, 512, body, uid, bg=bg, title="Night Shift Interactive")
+        return svg(512, 512, body, uid, bg=False, title=TITLE)
+    return svg(512, 512, body, uid, bg=bg, title=TITLE)
 
 
-def build_lockup(bg):
-    uid = "nsl"
-    W, H = 1600, 480
-    badge_size = 360
-    pad = (H - badge_size) / 2
-    s = badge_size / 512
-    mark = f'<g transform="translate({pad:g},{pad:g}) scale({s:g})">{badge(uid)}</g>'
-
-    text_x = pad + badge_size + 70
+def wordmark(x, top, mono=None):
+    """Two-line wordmark. Returns (svg body, width, height)."""
     # Primary line: NIGHT SHIFT
     big_scale, big_track = 1.0, 26
     _, big_w = text_paths("NIGHT SHIFT", big_track)
@@ -145,26 +149,60 @@ def build_lockup(bg):
     small_cap = 100 * small_scale
 
     gap = 34
-    block_h = big_cap + gap + small_cap
-    top = (H - block_h) / 2
-    word = text_group("NIGHT SHIFT", big_track, text_x, top, big_scale, 15, INK)
+    word = text_group("NIGHT SHIFT", big_track, x, top, big_scale, 15, mono or INK)
     sub = text_group(
-        raw, small_track, text_x, top + big_cap + gap, small_scale, 6, AQUA
+        raw, small_track, x, top + big_cap + gap, small_scale, 6, mono or AQUA
     )
-    total_w = text_x + big_w * big_scale + pad
-    body = f"{mark}\n{word}\n{sub}"
-    return svg(round(total_w), H, body, uid, bg=bg, title="Night Shift Interactive")
+    return f"{word}\n{sub}", big_w * big_scale, big_cap + gap + small_cap
+
+
+def build_lockup(bg, mono=None):
+    uid = "nsl"
+    H = 480
+    badge_size = 360
+    pad = (H - badge_size) / 2
+    s = badge_size / 512
+    mark = f'<g transform="translate({pad:g},{pad:g}) scale({s:g})">{badge(uid, mono)}</g>'
+
+    text_x = pad + badge_size + 70
+    _, _, block_h = wordmark(0, 0)
+    words, text_w, _ = wordmark(text_x, (H - block_h) / 2, mono)
+    total_w = text_x + text_w + pad
+    return svg(round(total_w), H, f"{mark}\n{words}", uid, bg=bg, title=TITLE)
+
+
+def build_stacked(bg, mono=None):
+    uid = "nss"
+    pad = 90
+    badge_size = 400
+    gap = 40
+    _, text_w, block_h = wordmark(0, 0)
+    W = text_w + 2 * pad
+    s = badge_size / 512
+    bx = (W - badge_size) / 2
+    mark = f'<g transform="translate({bx:g},{pad:g}) scale({s:g})">{badge(uid, mono)}</g>'
+    words, _, _ = wordmark(pad, pad + badge_size + gap, mono)
+    H = pad + badge_size + gap + block_h + pad
+    return svg(round(W), round(H), f"{mark}\n{words}", uid, bg=bg, title=TITLE)
 
 
 def main():
-    OUT.mkdir(parents=True, exist_ok=True)
+    (OUT / "mono").mkdir(parents=True, exist_ok=True)
     files = {
         "nsi-lockup-dark.svg": build_lockup(bg=True),
         "nsi-lockup-transparent.svg": build_lockup(bg=False),
+        "nsi-stacked-dark.svg": build_stacked(bg=True),
+        "nsi-stacked-transparent.svg": build_stacked(bg=False),
         "nsi-badge-dark.svg": build_badge(bg=True),
         "nsi-badge-transparent.svg": build_badge(bg=False),
         "nsi-badge-app-icon.svg": build_badge(bg=False, rounded=True),
     }
+    # Monochrome variants on transparent backgrounds: white for dark
+    # surfaces, black for light surfaces.
+    for tone, color in (("white", "#FFFFFF"), ("black", "#000000")):
+        files[f"mono/nsi-lockup-mono-{tone}.svg"] = build_lockup(bg=False, mono=color)
+        files[f"mono/nsi-stacked-mono-{tone}.svg"] = build_stacked(bg=False, mono=color)
+        files[f"mono/nsi-badge-mono-{tone}.svg"] = build_badge(bg=False, mono=color)
     for name, content in files.items():
         (OUT / name).write_text(content)
         print("wrote", OUT / name)

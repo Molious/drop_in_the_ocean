@@ -23,8 +23,7 @@
 
 <g transform="translate(60,60) scale(0.703125)"><g>
   <path d="M 349.9 79.4 A 200 200 0 1 0 441.4 181.1" fill="none"
-        stroke="url(#nsl-ring)" stroke-width="16" stroke-linecap="round"
-        filter="url(#nsl-glow-purple)"/>
+        stroke="url(#nsl-ring)" stroke-width="16" stroke-linecap="round" filter="url(#nsl-glow-purple)"/>
   <g filter="url(#nsl-glow-aqua)">
     <rect x="0" y="0" width="512" height="512" fill="url(#nsl-aqua)"
           mask="url(#nsl-crescent)"/>
