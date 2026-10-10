@@ -142,7 +142,11 @@ h2 { margin: 0 0 1.25rem; font: 400 var(--step-2)/1.3 var(--font-display); lette
 @media (prefers-reduced-motion: reduce) { .game img { transition: none; } .game:hover img { transform: none; } }
 
 /* Studio copy */
-.studio-lead { margin: 0 0 1.75rem; max-width: 34ch; font: 400 var(--step-2)/1.4 var(--font-display); letter-spacing: 0.01em; text-wrap: balance; }
+.studio { position: relative; overflow: hidden; background: radial-gradient(90% 70% at 85% 0%, rgba(123, 47, 247, 0.16), transparent 70%), radial-gradient(60% 50% at 0% 100%, rgba(53, 232, 224, 0.06), transparent 70%); }
+.studio .wrap { position: relative; }
+.studio-lead { margin: 0 0 2.25rem; max-width: 26ch; font: 400 var(--step-3)/1.3 var(--font-display); letter-spacing: 0.01em; text-wrap: balance; }
+.studio-lead em { font-style: normal; color: var(--aqua); }
+.studio .prose { font-size: var(--step-1); line-height: 1.7; }
 .worlds { margin: 1.5rem 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 3vw, 2rem); }
 .worlds__item { --tint: var(--aqua); min-width: 0; border-left: 2px solid var(--tint); padding-left: 1rem; }
 .worlds dt { font: 400 var(--step-0)/1.3 var(--font-display); letter-spacing: 0.03em; color: var(--tint); margin-bottom: 0.5rem; }
@@ -196,8 +200,8 @@ footer .right { margin-left: auto; font-family: var(--font-mono); font-size: 0.7
       <span>Night Shift</span>
     </a>
     <nav class="nav" aria-label="Main">
-      <a href="#games">Games</a>
       <a href="#studio">Studio</a>
+      <a href="#games">Games</a>
       <a href="#log">Shift log</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -218,6 +222,39 @@ footer .right { margin-left: auto; font-family: var(--font-mono); font-size: 0.7
         <a class="btn btn-primary" href="#games">See what we're making</a>
         <a class="btn btn-ghost" href="#contact">Get in touch</a>
       </div>
+    </div>
+  </section>
+
+  <section class="block studio" id="studio">
+    <div class="wrap">
+      <span class="label">Studio</span>
+      <h2>Night Shift Interactive</h2>
+      <p class="studio-lead">We're not building games you escape into. We're building games that reach out into your world, <em>and transform it.</em></p>
+      <div class="prose">
+        <p>Night Shift Interactive is an independent studio pioneering a new kind of play: augmented, atmospheric, alive. We take your reality — the real road under your wheels, the real city outside your windscreen, the real motion of your drive — and we turn it into fantasy. Your evening commute becomes a mission through deep space. Your quiet backstreet becomes a contested sector. The world doesn't disappear when you play. It ignites.</p>
+        <p>This is gaming built on genuinely new mechanics. Your car's real movement steers the experience. Smooth, careful driving becomes power, resource, and reward. The light of real day and real night bends the story around you. Nothing is simulated that the world can give us for free — we simply reveal the adventure that was hiding in plain sight.</p>
+        <p>Our universe is <strong>Last Mile Legends</strong>, one living world across three games:</p>
+      </div>
+      <dl class="worlds">
+        <div class="worlds__item worlds__item--celestial"><dt>Celestial Co-Pilot</dt><dd>An AI intelligence rides shotgun on your real drives, turning every street into a sector and every journey into a mystery that deepens the more you travel.</dd></div>
+        <div class="worlds__item worlds__item--redalert"><dt>Red Alert</dt><dd>Your cockpit becomes a starfighter. Map your city as a battlefield and bank the calm in your driving into firepower, hands on the wheel the whole time, because the ship only answers a steady pilot.</dd></div>
+        <div class="worlds__item worlds__item--poseidon"><dt>Poseidon</dt><dd>The frontier plunges beneath the waves, into a glowing, bioluminescent deep. The surface was only the beginning.</dd></div>
+      </dl>
+      <p class="studio-close">Your reality, turned to fantasy. <em>This is the night shift.</em></p>
+      <ul class="principles">
+        <li>
+          <h3>Atmosphere first</h3>
+          <p>Sound, light and pacing come before feature lists. If a game doesn't feel like somewhere, we keep working.</p>
+        </li>
+        <li>
+          <h3>Depth over size</h3>
+          <p>We'd rather ship one tight loop you can master than a sprawling map you forget.</p>
+        </li>
+        <li>
+          <h3>Respect the player</h3>
+          <p>Fair prices, no dark patterns, and saves that survive real life getting in the way.</p>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -259,39 +296,6 @@ footer .right { margin-left: auto; font-family: var(--font-mono); font-size: 0.7
               <p class="poster__release">Coming soon</p>
             </div>
           </div>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="block" id="studio">
-    <div class="wrap">
-      <span class="label">Studio</span>
-      <h2>Night Shift Interactive</h2>
-      <p class="studio-lead">We're not building games you escape into. We're building games that reach out into your world, and transform it.</p>
-      <div class="prose">
-        <p>Night Shift Interactive is an independent studio pioneering a new kind of play: augmented, atmospheric, alive. We take your reality — the real road under your wheels, the real city outside your windscreen, the real motion of your drive — and we turn it into fantasy. Your evening commute becomes a mission through deep space. Your quiet backstreet becomes a contested sector. The world doesn't disappear when you play. It ignites.</p>
-        <p>This is gaming built on genuinely new mechanics. Your car's real movement steers the experience. Smooth, careful driving becomes power, resource, and reward. The light of real day and real night bends the story around you. Nothing is simulated that the world can give us for free — we simply reveal the adventure that was hiding in plain sight.</p>
-        <p>Our universe is <strong>Last Mile Legends</strong>, one living world across three games:</p>
-      </div>
-      <dl class="worlds">
-        <div class="worlds__item worlds__item--celestial"><dt>Celestial Co-Pilot</dt><dd>An AI intelligence rides shotgun on your real drives, turning every street into a sector and every journey into a mystery that deepens the more you travel.</dd></div>
-        <div class="worlds__item worlds__item--redalert"><dt>Red Alert</dt><dd>Your cockpit becomes a starfighter. Map your city as a battlefield and bank the calm in your driving into firepower, hands on the wheel the whole time, because the ship only answers a steady pilot.</dd></div>
-        <div class="worlds__item worlds__item--poseidon"><dt>Poseidon</dt><dd>The frontier plunges beneath the waves, into a glowing, bioluminescent deep. The surface was only the beginning.</dd></div>
-      </dl>
-      <p class="studio-close">Your reality, turned to fantasy. <em>This is the night shift.</em></p>
-      <ul class="principles">
-        <li>
-          <h3>Atmosphere first</h3>
-          <p>Sound, light and pacing come before feature lists. If a game doesn't feel like somewhere, we keep working.</p>
-        </li>
-        <li>
-          <h3>Depth over size</h3>
-          <p>We'd rather ship one tight loop you can master than a sprawling map you forget.</p>
-        </li>
-        <li>
-          <h3>Respect the player</h3>
-          <p>Fair prices, no dark patterns, and saves that survive real life getting in the way.</p>
         </li>
       </ul>
     </div>
