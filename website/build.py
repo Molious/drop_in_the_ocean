@@ -9,8 +9,8 @@ from pathlib import Path
 HERE = Path(__file__).parent
 LOGOS = HERE.parent / "branding" / "night-shift-interactive" / "svg"
 
-# Placeholder contact address. Replace with the studio's real inbox.
-EMAIL = "hello@nightshiftinteractive.com"
+# The studio's contact inbox, shown in the Contact section.
+EMAIL = "captainatnightshift@gmail.com"
 
 
 def inline_svg(path, decorative=False, id_prefix=None):
