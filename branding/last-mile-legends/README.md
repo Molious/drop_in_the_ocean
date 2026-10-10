@@ -14,4 +14,8 @@
 - Stacked (logos, title cards, key art, store pages): **LAST MILE LEGENDS** large, with the game name smaller underneath.
 - On one line (page titles, metadata, captions): `Last Mile Legends — Celestial Co-Pilot`, `Last Mile Legends — Red Alert`, `Last Mile Legends — Poseidon`, joined with an em dash.
 
-"Celestial" is no longer an umbrella name. Only the game Celestial Co-Pilot keeps it.
+## Retired names
+| Old name | Use instead |
+|---|---|
+| Ares, Hermes 2: Ares | Last Mile Legends — Red Alert |
+| Celestial (as the umbrella) | Last Mile Legends. Only the game Celestial Co-Pilot keeps "Celestial". |
