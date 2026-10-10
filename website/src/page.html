@@ -1,11 +1,11 @@
 <title>Night Shift Interactive</title>
 <link rel="icon" type="image/png" href="favicon.png">
-<meta name="description" content="Night Shift Interactive: Augmented Interaction a Reality. An independent game studio making atmospheric, replayable games.">
+<meta name="description" content="Night Shift Interactive: Making Augmented Interaction a Reality. The independent studio behind Last Mile Legends: Celestial Co-Pilot, Red Alert and Poseidon.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Michroma&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one narrow column of "shift log" sections under a starfield hero; mono timestamps carry the night-shift theme. */
+/* Layout: a warp-starfield hero, then image-led game tiles, then narrow "shift log" sections; mono timestamps carry the night-shift theme. */
 :root {
   color-scheme: dark;
   --night: #0B0820;      /* page ground, matches the logo background */
@@ -91,7 +91,8 @@ svg { display: block; }
 }
 .btn-primary { background: var(--ink); color: var(--night); border-color: var(--ink); }
 .btn-primary:hover { box-shadow: 0 0 0 4px rgba(63, 242, 227, 0.25); }
-.btn-ghost:hover { border-color: var(--violet); background: rgba(155, 92, 255, 0.1); }
+.btn-ghost { color: var(--ink); border-color: rgba(63, 242, 227, 0.65); background: rgba(63, 242, 227, 0.04); }
+.btn-ghost:hover { border-color: var(--aqua); background: rgba(63, 242, 227, 0.1); box-shadow: 0 0 22px -6px rgba(63, 242, 227, 0.7); }
 
 /* Sections */
 section.block { padding-block: clamp(3.5rem, 8vw, 6rem); border-bottom: 1px solid var(--line); }
@@ -107,27 +108,33 @@ h2 { margin: 0 0 1.25rem; font: 400 var(--step-2)/1.3 var(--font-display); lette
 .split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
 @media (max-width: 820px) { .split { grid-template-columns: minmax(0, 1fr); } }
 
-/* Current project: the one card on the page */
-.project {
-  position: relative; overflow: hidden; border-radius: 20px;
-  background: linear-gradient(160deg, var(--dusk), var(--night) 70%);
-  border: 1px solid var(--line);
-  padding: clamp(1.5rem, 4vw, 2.5rem);
-  display: grid; gap: 1.5rem;
+/* Games: one image tile per title. The frame is shared; each game's palette shows in its art, glow and status pill. */
+.games-lede { margin: 0; color: var(--haze); font-size: var(--step-1); }
+.games { list-style: none; margin: 2.25rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2.4vw, 1.5rem); }
+.game {
+  --tint: var(--aqua); --pill: var(--tint); --glow: rgba(63, 242, 227, 0.5);
+  position: relative; isolation: isolate; overflow: hidden; min-width: 0; aspect-ratio: 4 / 5;
+  border-radius: 20px; border: 1px solid var(--line); background: var(--night);
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
-.project::before {
-  content: ""; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(63, 242, 227, 0.22), transparent);
+.game img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.game::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(11, 8, 32, 0) 38%, rgba(11, 8, 32, 0.6) 62%, rgba(11, 8, 32, 0.96)); }
+.game:hover { border-color: var(--tint); box-shadow: 0 0 46px -14px var(--glow); }
+.game:hover img { transform: scale(1.045); }
+.game__body { position: absolute; left: 0; right: 0; bottom: 0; display: grid; justify-items: start; gap: 0.45rem; padding: clamp(1.25rem, 3vw, 1.75rem); }
+.game__series { font: 500 0.68rem/1 var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--tint); }
+.game__name { margin: 0; font: 400 clamp(1.2rem, 0.95rem + 0.9vw, 1.55rem)/1.2 var(--font-display); letter-spacing: 0.03em; text-wrap: balance; text-shadow: 0 0 26px var(--glow); }
+.game__hook { margin: 0; max-width: 34ch; color: rgba(241, 237, 255, 0.84); font-size: 0.95rem; line-height: 1.5; }
+.game__status {
+  margin-top: 0.4rem; padding: 0.5rem 0.8rem; border-radius: 999px; border: 1px solid var(--pill);
+  font: 600 0.68rem/1 var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--pill);
+  background: color-mix(in srgb, var(--pill) 12%, transparent); box-shadow: 0 0 20px -6px var(--pill);
 }
-.project h3 { position: relative; margin: 0; font: 400 var(--step-1)/1.35 var(--font-display); letter-spacing: 0.04em; }
-.project p { position: relative; margin: 0; color: var(--haze); }
-.titles { position: relative; display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; list-style: none; margin: -0.4rem 0 0; padding: 0; font: 500 0.78rem/1.4 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--aqua); }
-.specs { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin: 0; }
-.specs div { background: var(--night); padding: 0.9rem 1rem; min-width: 0; }
-.specs dt { font: 500 0.7rem/1 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--haze); margin-bottom: 0.5rem; }
-.specs dd { margin: 0; font-weight: 600; }
-.specs .live { color: var(--aqua); }
-@media (max-width: 520px) { .specs { grid-template-columns: minmax(0, 1fr); } }
+.game--celestial { --tint: #B98CFF; --glow: rgba(123, 47, 247, 0.65); }
+.game--redalert { --tint: #6FC3DF; --pill: #DF740C; --glow: rgba(111, 195, 223, 0.55); }
+.game--poseidon { --tint: #4FFF7B; --glow: rgba(79, 255, 123, 0.45); }
+@media (max-width: 900px) { .games { grid-template-columns: minmax(0, 1fr); } .game { aspect-ratio: 16 / 12; } }
+@media (prefers-reduced-motion: reduce) { .game img { transition: none; } .game:hover img { transform: none; } }
 
 /* Principles */
 .principles { list-style: none; margin: 2.5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 3rem); }
@@ -187,8 +194,8 @@ footer .right { margin-left: auto; font-family: var(--font-mono); font-size: 0.7
     <canvas id="sky" aria-hidden="true"></canvas>
     <div class="wrap">
       <h1>{{STACKED}}</h1>
-      <p class="tagline">Augmented Interaction <em>a Reality</em></p>
-      <p class="lede">Night Shift Interactive is an independent studio making atmospheric, replayable games for the players who come alive once the house goes quiet.</p>
+      <p class="tagline">Making Augmented Interaction <em>a Reality</em></p>
+      <p class="lede">Games for the players who come alive once the house goes quiet.</p>
       <div class="actions">
         <a class="btn btn-primary" href="#games">See what we're making</a>
         <a class="btn btn-ghost" href="#contact">Get in touch</a>
@@ -197,28 +204,39 @@ footer .right { margin-left: auto; font-family: var(--font-mono); font-size: 0.7
   </section>
 
   <section class="block" id="games">
-    <div class="wrap split">
-      <div>
-        <span class="label">Games</span>
-        <h2>Last Mile Legends is in development</h2>
-        <div class="prose">
-          <p>Our debut series, <strong>Last Mile Legends</strong>, is three games set in one shared world. Trailers, demos and wishlist links land here first.</p>
-        </div>
-      </div>
-      <article class="project" aria-labelledby="p1">
-        <h3 id="p1">Last Mile Legends</h3>
-        <ul class="titles" aria-label="Titles in the series">
-          <li>Celestial Co-Pilot</li>
-          <li>Red Alert</li>
-          <li>Poseidon</li>
-        </ul>
-        <p>Expect the things we care about most: mood you can feel, systems worth mastering, and the kind of "one more run" that keeps you up past 2am.</p>
-        <dl class="specs">
-          <div><dt>Status</dt><dd class="live">In development</dd></div>
-          <div><dt>Platforms</dt><dd>To be announced</dd></div>
-          <div><dt>Release</dt><dd>To be announced</dd></div>
-        </dl>
-      </article>
+    <div class="wrap">
+      <span class="label">Games</span>
+      <h2>Last Mile Legends</h2>
+      <p class="games-lede">Three games, one world, built on the drive you're already making.</p>
+      <ul class="games">
+        <li class="game game--celestial">
+          <img src="assets/games/celestial-co-pilot.jpg" width="1000" height="1000" loading="lazy" alt="A small ship tracing a glowing route across a violet city grid">
+          <div class="game__body">
+            <span class="game__series">Last Mile Legends</span>
+            <h3 class="game__name">Celestial Co-Pilot</h3>
+            <p class="game__hook">A sci-fi co-pilot riding shotgun on every real-world drive.</p>
+            <span class="game__status">In development</span>
+          </div>
+        </li>
+        <li class="game game--redalert">
+          <img src="assets/games/red-alert.jpg" width="1000" height="1000" loading="lazy" alt="A pilot in a cockpit, an orange alien cruiser locked in the targeting brackets beyond the glass">
+          <div class="game__body">
+            <span class="game__series">Last Mile Legends</span>
+            <h3 class="game__name">Red Alert</h3>
+            <p class="game__hook">Your city, mapped as a battlefield. Hands on the wheel the whole time.</p>
+            <span class="game__status">In development</span>
+          </div>
+        </li>
+        <li class="game game--poseidon">
+          <img src="assets/games/poseidon.jpg" width="1000" height="1000" loading="lazy" alt="Light shafts falling into a deep blue sea, green bioluminescence and jellyfish drifting over a seabed">
+          <div class="game__body">
+            <span class="game__series">Last Mile Legends</span>
+            <h3 class="game__name">Poseidon</h3>
+            <p class="game__hook">The deep is next.</p>
+            <span class="game__status">Coming soon</span>
+          </div>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -254,7 +272,8 @@ footer .right { margin-left: auto; font-family: var(--font-mono); font-size: 0.7
         <div class="prose"><p>Studio milestones, newest first. We'll keep this updated.</p></div>
       </div>
       <ol class="log" reversed>
-        <li class="next"><time>Coming soon</time><span>Project 01 announcement</span></li>
+        <li class="next"><time>Coming soon</time><span>Last Mile Legends trailer</span></li>
+        <li><time datetime="2026-10">Oct 2026</time><span>Last Mile Legends revealed: Celestial Co-Pilot, Red Alert and Poseidon</span></li>
         <li><time datetime="2026-10">Oct 2026</time><span>Website goes live</span></li>
         <li><time datetime="2026-10">Oct 2026</time><span>Studio identity finalized: crescent badge and wordmark</span></li>
       </ol>
@@ -278,7 +297,7 @@ footer .right { margin-left: auto; font-family: var(--font-mono); font-size: 0.7
   <div class="wrap">
     {{BADGE_MONO}}
     <span>&copy; <span id="year">2026</span> Night Shift Interactive</span>
-    <span class="right">Augmented Interaction a Reality</span>
+    <span class="right">Making Augmented Interaction a Reality</span>
   </div>
 </footer>
 
@@ -318,36 +337,71 @@ footer .right { margin-left: auto; font-family: var(--font-mono); font-size: 0.7
     } else { select(); }
   });
 
-  // Starfield
+  // Warp starfield behind the hero, ported from the games' cockpit glass: stars
+  // stream out from a vanishing point, nebulae drift, the odd meteor crosses.
+  // Holds a still frame for reduced motion and pauses while scrolled away.
   const canvas = document.getElementById("sky");
   const ctx = canvas.getContext("2d");
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let stars = [], w = 0, h = 0, dpr = 1;
+  const TAU = Math.PI * 2;
+  const NEB = [
+    { x: 0.22, y: 0.3, r: 0.55, c: "91,33,214", a: 0.26, sx: 0.05, sy: 0.04, sp: 0.05 },
+    { x: 0.8, y: 0.66, r: 0.5, c: "20,180,217", a: 0.14, sx: -0.045, sy: 0.035, sp: 0.04 },
+    { x: 0.55, y: 0.12, r: 0.38, c: "155,92,255", a: 0.16, sx: 0.04, sy: -0.03, sp: 0.033 },
+  ];
+  const COLS = ["241,237,255", "241,237,255", "241,237,255", "63,242,227", "155,92,255"];
+  let stars = [], meteors = [], w = 0, h = 0, dpr = 1, cx = 0, cy = 0, reach = 1, last = 0, nextMet = 2, visible = true;
+  const spawn = (near) => ({ a: Math.random() * TAU, d: near ? Math.random() * 0.05 : Math.random(), z: Math.random() * 0.85 + 0.15, p: Math.random() * TAU, c: COLS[(Math.random() * COLS.length) | 0] });
   function resize() {
     dpr = Math.min(devicePixelRatio || 1, 2);
     w = canvas.clientWidth; h = canvas.clientHeight;
     canvas.width = w * dpr; canvas.height = h * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const count = Math.round((w * h) / 5200);
-    stars = Array.from({ length: count }, () => ({
-      x: Math.random() * w, y: Math.random() * h,
-      r: Math.random() * 1.2 + 0.25,
-      a: Math.random() * 0.6 + 0.2,
-      s: Math.random() * 0.0015 + 0.0004,
-      p: Math.random() * Math.PI * 2,
-      c: Math.random() < 0.12 ? "63,242,227" : (Math.random() < 0.2 ? "155,92,255" : "241,237,255"),
-    }));
-    draw(0);
+    cx = w / 2; cy = h * 0.42; reach = Math.hypot(w, h) / 2;
+    stars = Array.from({ length: Math.round((w * h) / 3600) }, () => spawn(false));
+    draw(0, 0);
   }
-  function draw(t) {
+  function draw(t, dt) {
     ctx.clearRect(0, 0, w, h);
-    for (const s of stars) {
-      const tw = still ? 1 : 0.55 + 0.45 * Math.sin(t * s.s + s.p);
-      ctx.fillStyle = `rgba(${s.c},${(s.a * tw).toFixed(3)})`;
-      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fill();
+    ctx.globalCompositeOperation = "lighter";
+    for (const [i, n] of NEB.entries()) {
+      const nx = (n.x + Math.sin(t * n.sp + i * 2.1) * n.sx) * w, ny = (n.y + Math.cos(t * n.sp * 0.8 + i * 1.7) * n.sy) * h, r = n.r * Math.max(w, h);
+      const g = ctx.createRadialGradient(nx, ny, 0, nx, ny, r);
+      g.addColorStop(0, `rgba(${n.c},${n.a})`); g.addColorStop(1, `rgba(${n.c},0)`);
+      ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
     }
+    ctx.globalCompositeOperation = "source-over";
+    const drift = 0.075 * dt;
+    for (const s of stars) {
+      s.d += drift * (0.25 + s.z * 1.1);
+      if (s.d > 1.35) Object.assign(s, spawn(true));
+      const dist = s.d * reach, x = cx + Math.cos(s.a) * dist, y = cy + Math.sin(s.a) * dist;
+      const alpha = Math.min(1, (0.2 + s.d * 1.1) * (0.72 + Math.sin(t * 1.6 + s.p) * 0.28) * (0.45 + s.z * 0.6));
+      const r = (0.4 + s.d * 1.5) * (0.5 + s.z * 0.8);
+      if (s.z > 0.55 && !still) {
+        const tail = (0.02 + s.z * 0.05) * dist;
+        ctx.strokeStyle = `rgba(${s.c},${alpha * 0.4})`; ctx.lineWidth = Math.max(0.6, r * 0.7);
+        ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(cx + Math.cos(s.a) * (dist - tail), cy + Math.sin(s.a) * (dist - tail)); ctx.stroke();
+      }
+      ctx.fillStyle = `rgba(${s.c},${alpha})`; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill();
+    }
+    if (!still && t > nextMet && meteors.length < 2) { meteors.push({ a: Math.random() * TAU, d: 0.05 + Math.random() * 0.15, z: 0.7 + Math.random() * 0.6 }); nextMet = t + 5 + Math.random() * 8; }
+    meteors = meteors.filter((m) => {
+      m.d += m.z * 0.45 * dt; if (m.d > 1.4) return false;
+      const dist = m.d * reach, tail = 0.08 * reach, x = cx + Math.cos(m.a) * dist, y = cy + Math.sin(m.a) * dist;
+      const tx = cx + Math.cos(m.a) * (dist - tail), ty = cy + Math.sin(m.a) * (dist - tail);
+      const g = ctx.createLinearGradient(x, y, tx, ty);
+      g.addColorStop(0, "rgba(241,237,255,0.9)"); g.addColorStop(0.35, "rgba(63,242,227,0.4)"); g.addColorStop(1, "rgba(63,242,227,0)");
+      ctx.strokeStyle = g; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(tx, ty); ctx.stroke();
+      return true;
+    });
   }
-  function loop(t) { draw(t); requestAnimationFrame(loop); }
+  function loop(ms) {
+    const t = ms / 1000, dt = last ? Math.min(0.05, t - last) : 0.016; last = t;
+    if (visible) draw(t, dt);
+    requestAnimationFrame(loop);
+  }
+  if ("IntersectionObserver" in window) new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(canvas);
   addEventListener("resize", resize);
   resize();
   if (!still) requestAnimationFrame(loop);
